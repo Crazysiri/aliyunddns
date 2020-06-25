@@ -56,7 +56,7 @@ class AliDDNS():
             domain_list = json.loads(response)  # 将返回的JSON数据转化为Python能识别的
 
             ip = urlopen('https://api-ipv4.ip.sb/ip').read()  # 使用IP.SB的接口获取ipv4地址
-            ipv4 = str(ip, encoding='utf-8')
+            ipv4 = str(ip, encoding='utf-8').strip()
             ipv4_out = ipv4
             print("获取到IPv4地址：%s" % ipv4)
 
@@ -91,7 +91,7 @@ class AliDDNS():
             domain_list = json.loads(response)  # 将返回的JSON数据转化为Python能识别的
 
             ip = urlopen('https://api-ipv6.ip.sb/ip').read()  # 使用IP.SB的接口获取ipv6地址
-            ipv6 = str(ip, encoding='utf-8')
+            ipv6 = str(ip, encoding='utf-8').strip()
             print("获取到IPv6地址：%s" % ipv6)
 
             if domain_list['TotalCount'] == 0:
@@ -113,6 +113,5 @@ class AliDDNS():
                 add(domain, sub_domain, "AAAA", ipv6)
                 print("修改域名解析成功")
         return ipv4_out,result
-
 
 
