@@ -8,6 +8,5 @@
       "aliyun-python-sdk-domain",
       "aliyun-python-sdk-alidns"
     ],
-    "codeowners": ["@zero"],
-    "requirements": []
+    "codeowners": ["@zero"]
 }
