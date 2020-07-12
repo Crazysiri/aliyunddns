@@ -21,6 +21,8 @@ from . import aliddns
 
 _LOGGER = logging.getLogger(__name__)
 
+SCAN_INTERVAL = datetime.timedelta(hours=1)
+
 DEFAULT_NAME = 'aliyun_ddns'
 
 #多个sensors
@@ -65,8 +67,7 @@ class AliyunDDNSSensor(Entity):
         self._state = ""
         self._attributes = {}
         self._aliddns = aliddns.AliDDNS(accessKeyId,accessSecret,domain,sub_domain)
-        self.update = Throttle(timedelta(hours=1))(self._update)
-        self._update()
+        # self.update()
         # @callback
         # def _listener_callback(_):
         #     self._update()
@@ -94,12 +95,12 @@ class AliyunDDNSSensor(Entity):
         """Return the state of the binary sensor."""
         return self._state 
 
-    @property
-    def should_poll(self):
-        """No polling needed."""
-        return False
+    # @property
+    # def should_poll(self):
+    #     """No polling needed."""
+    #     return False
 
-    def _update(self):
+    def update(self):
         """Get the latest data and update the states."""
         ip_addr,result = self._aliddns.do()
         if result:
@@ -113,6 +114,6 @@ class AliyunDDNSSensor(Entity):
         self._attributes['sub_domain'] = self._sub_domain
 
         _LOGGER.info(ip_addr)
-
+        _LOGGER.info('update at aliyun ddns sensor')
 
 
